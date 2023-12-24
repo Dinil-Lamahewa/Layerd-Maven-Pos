@@ -6,94 +6,67 @@
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="722.0" prefWidth="1168.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
+<AnchorPane prefHeight="593.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
     <children>
-        <JFXComboBox fx:id="cmbCustId" layoutX="823.0" layoutY="420.0" prefHeight="30.0" prefWidth="150.0" />
-        <Label layoutX="823.0" layoutY="386.0" prefHeight="18.0" prefWidth="78.0" text="customer ID" />
-        <JFXComboBox fx:id="cmbCode" layoutX="823.0" layoutY="503.0" prefHeight="30.0" prefWidth="150.0" />
-        <Label layoutX="823.0" layoutY="475.0" prefHeight="18.0" prefWidth="78.0" text="Item Code" />
-        <JFXTextField fx:id="txtCustName" layoutX="988.0" layoutY="424.0" prefHeight="26.0" prefWidth="178.0" />
-        <JFXTextField fx:id="txtDesc" layoutX="198.0" layoutY="571.0" prefHeight="26.0" prefWidth="178.0" />
-        <JFXTextField fx:id="txtUnitPrice" layoutX="995.0" layoutY="508.0" prefHeight="26.0" prefWidth="143.0" />
-        <JFXTextField fx:id="txtQty" layoutX="481.0" layoutY="571.0" prefHeight="26.0" prefWidth="78.0" />
-        <Label layoutX="220.0" layoutY="534.0" prefHeight="18.0" prefWidth="78.0" text="Description" />
-        <Label layoutX="988.0" layoutY="386.0" prefHeight="18.0" prefWidth="78.0" text="Name" />
-        <Label layoutX="998.0" layoutY="475.0" prefHeight="18.0" prefWidth="78.0" text="Unit Price" />
-        <Label layoutX="455.0" layoutY="543.0" prefHeight="18.0" prefWidth="78.0" text="Buying QTY" />
-        <JFXButton layoutX="945.0" layoutY="584.0" onAction="#addToCartButtonOnAction" prefHeight="30.0" prefWidth="106.0" style="-fx-background-color: #d7ba44;" text="Add to Cart" textFill="WHITE">
+        <JFXComboBox fx:id="cmbCustId" layoutX="65.0" layoutY="46.0" prefHeight="30.0" prefWidth="150.0" />
+        <Label layoutX="65.0" layoutY="28.0" prefHeight="18.0" prefWidth="78.0" text="customer ID" />
+        <JFXComboBox fx:id="cmbCode" layoutX="65.0" layoutY="117.0" prefHeight="30.0" prefWidth="150.0" />
+        <Label layoutX="65.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Item Code" />
+        <JFXTextField fx:id="txtCustName" layoutX="252.0" layoutY="48.0" prefHeight="26.0" prefWidth="178.0" />
+        <JFXTextField fx:id="txtDesc" layoutX="252.0" layoutY="120.0" prefHeight="26.0" prefWidth="178.0" />
+        <JFXTextField fx:id="txtUnitPrice" layoutX="467.0" layoutY="120.0" prefHeight="26.0" prefWidth="143.0" />
+        <JFXTextField fx:id="txtQty" layoutX="644.0" layoutY="120.0" prefHeight="26.0" prefWidth="78.0" />
+        <Label layoutX="252.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Description" />
+        <Label layoutX="252.0" layoutY="28.0" prefHeight="18.0" prefWidth="78.0" text="Name" />
+        <Label layoutX="467.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Unit Price" />
+        <Label layoutX="644.0" layoutY="99.0" prefHeight="18.0" prefWidth="78.0" text="Buying QTY" />
+        <JFXButton layoutX="709.0" layoutY="179.0" onAction="#addToCartButtonOnAction" prefHeight="30.0" prefWidth="106.0" style="-fx-background-color: #d7ba44;" text="Add to Cart" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </JFXButton>
-        <JFXTreeTableView fx:id="tblItem" layoutX="24.0" layoutY="78.0" prefHeight="431.0" prefWidth="787.0">
+        <JFXTreeTableView fx:id="tblItem" layoutX="43.0" layoutY="225.0" prefHeight="295.0" prefWidth="762.0">
             <columns>
-                <TreeTableColumn fx:id="colCode" editable="false" prefWidth="108.79999542236328" text="Code" />
-                <TreeTableColumn fx:id="colDesc" prefWidth="260.0" text="Description" />
-                <TreeTableColumn fx:id="colQty" prefWidth="111.0" text="QTY" />
-                <TreeTableColumn fx:id="colAmount" prefWidth="162.0" text="Amount" />
-                <TreeTableColumn fx:id="colOption" prefWidth="144.0" text="Option" />
+                <TreeTableColumn fx:id="colCode" prefWidth="108.79999542236328" text="Code" />
+                <TreeTableColumn fx:id="colDesc" prefWidth="228.79998779296875" text="Description" />
+                <TreeTableColumn fx:id="colQty" prefWidth="95.20001220703125" text="QTY" />
+                <TreeTableColumn fx:id="colAmount" prefWidth="175.99996948242188" text="Amount" />
+                <TreeTableColumn fx:id="colOption" prefWidth="154.4000244140625" text="Option" />
             </columns>
         </JFXTreeTableView>
-        <JFXButton layoutX="848.0" layoutY="643.0" onAction="#placeOrderButtonOnAction" prefHeight="81.0" prefWidth="326.0" style="-fx-background-color: #4D4EFF;" text="Place Order" textFill="WHITE">
+        <JFXButton layoutX="709.0" layoutY="535.0" onAction="#placeOrderButtonOnAction" prefHeight="43.0" prefWidth="106.0" style="-fx-background-color: #fa7178;" text="Place Order" textFill="WHITE">
             <font>
-                <Font name="System Bold" size="35.0" />
+                <Font name="System Bold" size="14.0" />
             </font>
         </JFXButton>
-        <Label layoutX="40.0" layoutY="638.0" prefHeight="26.0" prefWidth="50.0" text="Total : ">
+        <Label layoutX="43.0" layoutY="543.0" prefHeight="26.0" prefWidth="50.0" text="Total : ">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <Label fx:id="lblTotal" layoutX="104.0" layoutY="638.0" prefHeight="26.0" prefWidth="116.0" text="0.00">
+        <Label fx:id="lblTotal" layoutX="104.0" layoutY="543.0" prefHeight="26.0" prefWidth="116.0" text="0.00">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="9.0" layoutY="129.0" onAction="#backButtonOnAction" prefHeight="33.0" prefWidth="36.0" />
+        <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="9.0" layoutY="13.0" onAction="#backButtonOnAction" prefHeight="33.0" prefWidth="36.0">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/bck.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
       <Label fx:id="lblOrderId" layoutX="683.0" layoutY="24.0" prefHeight="26.0" prefWidth="126.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Pane layoutX="-4.0" layoutY="-4.0" prefHeight="57.0" prefWidth="1177.0" style="-fx-background-color: white;">
-         <effect>
-            <DropShadow color="#b5aeae" height="89.2" radius="21.8" spread="0.01" width="0.0" />
-         </effect>
-         <children>
-            <Text fill="#28356e" layoutX="48.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FreshFood">
-               <font>
-                  <Font name="Arial Bold" size="23.0" />
-               </font>
-            </Text>
-            <JFXButton layoutX="1012.0" prefHeight="57.0" prefWidth="165.0" style="-fx-background-color: #4D4EFF;" text="Help" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </JFXButton>
-              <ImageView fitHeight="57.0" fitWidth="36.0" layoutX="1027.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                      <Image url="@../img/icons8-help-100.png" />
-                  </image>
-              </ImageView>
-                <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="15.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../img/bck.png" />
-                    </image>
-                </ImageView>
-         </children>
-      </Pane>
-        <ImageView fitHeight="309.0" fitWidth="350.0" layoutX="823.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../img/placeOrderImg.PNG" />
-            </image>
-        </ImageView>
     </children>
 </AnchorPane>
