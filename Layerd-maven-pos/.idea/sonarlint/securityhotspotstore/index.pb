@@ -13,3 +13,7 @@ f
 6src/main/java/controller/PlaceOrderFormController.java,d\a\da2599fd642ee3543b650efe1c6ca5c43fb8e749
 d
 4src/main/java/controller/CustomerFormController.java,a\a\aa193ff54fd65b5e52212341451fb916ba8b0d1a
+N
+src/main/java/dao/CrudDao.java,7\8\78e787272942dea7f82a659182496bc242d14ac9
+O
+src/main/java/dao/SuperDao.java,f\9\f918a504a06f3c81f0f133ae2094633652ce8935
