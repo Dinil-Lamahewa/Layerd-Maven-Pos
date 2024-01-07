@@ -1,18 +1,17 @@
 package controller;
 
+import bo.BoFactory;
 import bo.custom.CustomerBo;
+import bo.custom.ItemBo;
 import bo.custom.OrderBo;
-import bo.custom.impl.CustomerBoImpl;
-import bo.custom.impl.OrderBoImpl;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import dao.custom.ItemDao;
-import dao.custom.impl.ItemDaoImpl;
+import dao.util.BoType;
 import dto.CustomerDto;
 import dto.ItemDto;
 import dto.OrderDetailDto;
 import dto.OrderDto;
-import dto.tm.OrderTm;
+import dto.tm.PlaceOrderTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +23,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.util.List;
 
 public class PlaceOrderFormController {
 
+    public AnchorPane orderPane;
     public Label lblOrderId;
     @FXML
     private JFXComboBox<?> cmbCustId;
@@ -55,7 +57,10 @@ public class PlaceOrderFormController {
     private JFXTextField txtQty;
 
     @FXML
-    private JFXTreeTableView<OrderTm> tblItem;
+    private Label lblTotal;
+
+    @FXML
+    private JFXTreeTableView<PlaceOrderTm> tblOrder;
 
     @FXML
     private TreeTableColumn<?, ?> colCode;
@@ -72,18 +77,16 @@ public class PlaceOrderFormController {
     @FXML
     private TreeTableColumn<?, ?> colOption;
 
-    @FXML
-    private Label lblTotal;
+    private List<CustomerDto> customers = new ArrayList<>();
+    private List<ItemDto> items = new ArrayList<>();
 
-    private CustomerBo customerBo = new CustomerBoImpl();
-    private OrderBo orderBo= new OrderBoImpl();
-    private ItemDao itemDao = new ItemDaoImpl();
-    private List<CustomerDto> customers;
-    private List<ItemDto> items;
-    private double total=0;
+    private double tot = 0;
 
-    private ObservableList<OrderTm> tmList = FXCollections.observableArrayList();
-//    private OrderDao orderDao = new OrderDaoImpl();
+    private CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
+    private ItemBo itemBo = BoFactory.getInstance().getBo(BoType.ITEM);
+    private OrderBo orderBo = BoFactory.getInstance().getBo(BoType.ORDER);
+
+    private ObservableList<PlaceOrderTm> tmList = FXCollections.observableArrayList();
 
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
@@ -92,37 +95,29 @@ public class PlaceOrderFormController {
         colAmount.setCellValueFactory(new TreeItemPropertyValueFactory<>("amount"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
 
-        try {
-            customers = customerBo.allCustomers();
-            items = itemDao.allItems();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        generateId();
 
         loadCustomerIds();
         loadItemCodes();
 
-        cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, o, newValue) -> {
+        cmbCustId.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, id) -> {
             for (CustomerDto dto:customers) {
-               if (dto.getId().equals(newValue.toString())){
-                   txtCustName.setText(dto.getName());
-               }
-            }
-        });
-
-        cmbCode.getSelectionModel().selectedItemProperty().addListener((observableValue, o, newValue) -> {
-            for (ItemDto dto:items) {
-                if (dto.getCode().equals(newValue.toString())){
-                    txtDesc.setText(dto.getDesc());
-                    txtUnitPrice.setText(String.format("%.2f",dto.getUnitPrice()));
+                if (dto.getId().equals(id)){
+                    txtCustName.setText(dto.getName());
                 }
             }
         });
-
-        setOrderId();
+        cmbCode.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, code) -> {
+            for (ItemDto dto:items) {
+                if (dto.getCode().equals(code)){
+                    txtDesc.setText(dto.getDescription());
+                    txtUnitPrice.setText(String.format("%.2f",dto.getPrice()));
+                }
+            }
+        });
     }
 
-    private void setOrderId() {
+    private void generateId() {
         try {
             lblOrderId.setText(orderBo.generateId());
         } catch (SQLException e) {
@@ -132,72 +127,94 @@ public class PlaceOrderFormController {
         }
     }
 
-    private void loadItemCodes() {
-        ObservableList list = FXCollections.observableArrayList();
-
-        for (ItemDto dto:items) {
-            list.add(dto.getCode());
+    private void loadItemCodes()  {
+        try {
+            items = itemBo.allItems();
+            ObservableList list = FXCollections.observableArrayList();
+            for (ItemDto dto:items){
+                list.add(dto.getCode());
+            }
+            cmbCode.setItems(list);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-
-        cmbCode.setItems(list);
     }
 
     private void loadCustomerIds() {
-        ObservableList list = FXCollections.observableArrayList();
-
-        for (CustomerDto dto:customers) {
-            list.add(dto.getId());
-        }
-
-        cmbCustId.setItems(list);
-    }
-
-    @FXML
-    void addToCartButtonOnAction(ActionEvent event) {
-        JFXButton btn = new JFXButton("Delete");
-
-        OrderTm tm = new OrderTm(
-                cmbCode.getValue().toString(),
-                txtDesc.getText(),
-                Integer.parseInt(txtQty.getText()),
-                Double.parseDouble(txtUnitPrice.getText())*Integer.parseInt(txtQty.getText()),
-                btn
-        );
-        btn.setOnAction(actionEvent -> {
-            tmList.remove(tm);
-            total-=tm.getAmount();
-            lblTotal.setText(String.format("%.2f",total));
-            tblItem.refresh();
-        });
-        boolean isExist = false;
-        for (OrderTm order:tmList) {
-            if (order.getCode().equals(tm.getCode())){
-                order.setQty(order.getQty()+tm.getQty());
-                order.setAmount(order.getAmount()+tm.getAmount());
-                isExist = true;
-                total+= tm.getAmount();
+        try {
+            customers = customerBo.allCustomers();
+            ObservableList list = FXCollections.observableArrayList();
+            for (CustomerDto dto:customers){
+                list.add(dto.getId());
             }
+            cmbCustId.setItems(list);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        if (!isExist){
-            tmList.add(tm);
-            total+=tm.getAmount();
-        }
-
-        lblTotal.setText(String.format("%.2f",total));
-
-        TreeItem treeItem = new RecursiveTreeItem<>(tmList, RecursiveTreeObject::getChildren);
-        tblItem.setRoot(treeItem);
-        tblItem.setShowRoot(false);
     }
 
     @FXML
     void backButtonOnAction(ActionEvent event) {
-        Stage stage = (Stage) tblItem.getScene().getWindow();
+        Stage stage = (Stage) orderPane.getScene().getWindow();
         try {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/DashboardForm.fxml"))));
-            stage.centerOnScreen();
-            stage.show();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void addToCartButtonOnAction(ActionEvent event) {
+
+        try {
+            double amount = itemBo.getItem(cmbCode.getValue().toString()).getPrice() * Integer.parseInt(txtQty.getText());
+            JFXButton btn = new JFXButton("Delete");
+            btn.setStyle("-fx-background-color: #AF0C0C; -fx-text-fill: white; ");
+
+            PlaceOrderTm orderTm = new PlaceOrderTm(
+                    cmbCode.getValue().toString(),
+                    txtDesc.getText(),
+                    Integer.parseInt(txtQty.getText()),
+                    amount,
+                    btn
+            );
+
+            btn.setOnAction(actionEvent -> {
+                tmList.remove(orderTm);
+                tot -= orderTm.getAmount();
+                tblOrder.refresh();
+                lblTotal.setText(String.format("%.2f",tot));
+            });
+
+            boolean isExist =false;
+
+            for (PlaceOrderTm order:tmList) {
+                if (order.getCode().equals(orderTm.getCode())){
+                    order.setQty(order.getQty()+orderTm.getQty());
+                    order.setAmount(order.getAmount()+orderTm.getAmount());
+                    isExist = true;
+                    tot += orderTm.getAmount();
+                }
+            }
+
+            if (!isExist){
+                tmList.add(orderTm);
+                tot += orderTm.getAmount();
+            }
+
+            TreeItem<PlaceOrderTm> treeItem = new RecursiveTreeItem<PlaceOrderTm>(tmList, RecursiveTreeObject::getChildren);
+            tblOrder.setRoot(treeItem);
+            tblOrder.setShowRoot(false);
+
+            lblTotal.setText(String.format("%.2f",tot));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -205,38 +222,42 @@ public class PlaceOrderFormController {
     @FXML
     void placeOrderButtonOnAction(ActionEvent event) {
         List<OrderDetailDto> list = new ArrayList<>();
-        for (OrderTm tm:tmList) {
+        for (PlaceOrderTm tm:tmList) {
             list.add(new OrderDetailDto(
                     lblOrderId.getText(),
                     tm.getCode(),
                     tm.getQty(),
-                    tm.getAmount()/tm.getQty()
+                    tm.getAmount() / tm.getQty()
             ));
         }
 
-        OrderDto dto = new OrderDto(
-                lblOrderId.getText(),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")),
-                cmbCustId.getValue().toString(),
-                list
-        );
-
-
+        boolean isSaved = false;
         try {
-            boolean isSaved = orderBo.saveOrder(dto);
+            isSaved = orderBo.saveOrder(new OrderDto(
+                    lblOrderId.getText(),
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    cmbCustId.getValue().toString(),
+                    list
+            ));
             if (isSaved){
-                new Alert(Alert.AlertType.INFORMATION, "Order Saved!").show();
-                setOrderId();
-            }else{
-                new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
+                new Alert(Alert.AlertType.INFORMATION,"Order Saved!").show();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
+    public void BackBtnOnAction(MouseEvent mouseEvent) {
+        Stage stage = (Stage) orderPane.getScene().getWindow();
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/DashboardForm.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

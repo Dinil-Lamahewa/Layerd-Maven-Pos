@@ -1,9 +1,6 @@
 package entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +22,7 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private List<OrderDetail> orderDetails = new ArrayList<>();
+
     public Item(String code, String description, double unitPrice, int qtyOnHand) {
         this.code = code;
         this.description = description;

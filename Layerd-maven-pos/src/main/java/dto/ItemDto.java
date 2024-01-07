@@ -4,12 +4,14 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @ToString
 public class ItemDto {
     private String code;
-    private String desc;
-    private double unitPrice;
+    private String description;
+    private double price;
     private int qty;
+
 }
+

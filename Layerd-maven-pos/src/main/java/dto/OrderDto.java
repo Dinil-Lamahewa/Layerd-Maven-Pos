@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @ToString
 public class OrderDto {
+
     private String orderId;
     private String date;
     private String custId;

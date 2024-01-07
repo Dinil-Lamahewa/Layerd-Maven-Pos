@@ -1,22 +1,21 @@
 
-`	java:S112m"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-a	java:S112Å"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-a	java:S112Ò"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Û"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112ç"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+h	java:S112ğ"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8Õã°¬Î1
 E
-java:S3740 "/Provide the parametrized type for this generic.(´°æ¸
+java:S1604^"(Make this anonymous inner class a lambda(òÄÒ8—Ÿ°¬Î1
 J
-java:S3740#"/Provide the parametrized type for this generic.(ºšãÿıÿÿÿÿ
-E
-java:S3740&"/Provide the parametrized type for this generic.(Œà•®
-E
-java:S3740)"/Provide the parametrized type for this generic.(ÚÊØ˜
+java:S1604["(Make this anonymous inner class a lambda(Î™êÿşÿÿÿÿ8˜Ÿ°¬Î1
+t
+java:S1104<"WMake tblCustomer a static final constant or non-public and provide accessors if needed.(¹§Éî8™Ÿ°¬Î1
+B
+java:S1602W",Remove useless curly braces around statement(ŠĞå™
+C
+java:S1602†",Remove useless curly braces around statement(ë¹¬
 J
-java:S3740,"/Provide the parametrized type for this generic.(ù‚©·üÿÿÿÿ
-B
-java:S1602G",Remove useless curly braces around statement(ŠĞå™
-B
-java:S1602e",Remove useless curly braces around statement(ë¹¬
-N
-java:S1172¾"2Remove this unused method parameter "actionEvent".(Íáå‘ùÿÿÿÿ
+java:S1172Ö",Remove this unused method parameter "event".(¦ò‚8®¨°¬Î1
 I
-java:S1172É"2Remove this unused method parameter "actionEvent".(åÈĞê
+java:S1172ß"2Remove this unused method parameter "actionEvent".(åÈĞê
+p	java:S100ë"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛşÖÅúÿÿÿÿ8ß¨°¬Î1
+T
+java:S1172ë"1Remove this unused method parameter "mouseEvent".(ÛşÖÅúÿÿÿÿ8Şæ°¬Î1

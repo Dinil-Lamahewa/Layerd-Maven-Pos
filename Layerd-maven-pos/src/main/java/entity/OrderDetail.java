@@ -12,18 +12,20 @@ import javax.persistence.*;
 @Entity
 public class OrderDetail {
     @EmbeddedId
-    private OrderDetailsKey id;
+    private OrderDetailsKey detailsId;
 
     @ManyToOne
-    @MapsId("itemCode")
-    @JoinColumn(name = "item_code")
-    Item item;
-
-    @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name = "order_id")
+    @MapsId("id")
+    @JoinColumn(name = "orderId")
     Orders orders;
+
+    @ManyToOne
+    @MapsId("code")
+    @JoinColumn(name = "itemCode")
+    Item item;
 
     private int qty;
     private double unitPrice;
+
 }
+

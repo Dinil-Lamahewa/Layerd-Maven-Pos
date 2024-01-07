@@ -1,11 +1,9 @@
 package entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,18 @@ import java.util.List;
 @Entity
 public class Orders {
     @Id
-    private String orderId;
-    private String date;
+    private String id;
+    private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne()
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
     @OneToMany(mappedBy = "orders")
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    public Orders(String orderId, String date) {
-        this.orderId = orderId;
+    public Orders(String id, Date date) {
+        this.id = id;
         this.date = date;
     }
 }

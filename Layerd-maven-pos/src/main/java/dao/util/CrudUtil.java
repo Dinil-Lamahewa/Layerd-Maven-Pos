@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class CrudUtil {
     public static <T>T execute(String sql,Object...args) throws SQLException, ClassNotFoundException {
-        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        if (sql.startsWith("SELECT") || sql.startsWith("select")){
+        PreparedStatement pstm = DBConnection.getInstanceOf().getConnection().prepareStatement(sql);
+        if (sql.startsWith("SELECT") || sql.startsWith("select") || sql.startsWith("Select")){
             return (T)pstm.executeQuery();
         }
 

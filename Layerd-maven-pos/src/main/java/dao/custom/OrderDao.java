@@ -6,5 +6,5 @@ import dto.OrderDto;
 import java.sql.SQLException;
 
 public interface OrderDao extends CrudDao<OrderDto> {
-    OrderDto getLastOrder() throws SQLException, ClassNotFoundException;
+    OrderDto lastOrder() throws SQLException, ClassNotFoundException;
 }
