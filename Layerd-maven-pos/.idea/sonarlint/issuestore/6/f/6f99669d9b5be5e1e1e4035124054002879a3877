@@ -1,11 +1,23 @@
 
-f
-java:S1104"PMake pane a static final constant or non-public and provide accessors if needed.(ç¢ıã
-i
-java:S1104"SMake lblTime a static final constant or non-public and provide accessors if needed.(¿°×•
-H
-java:S1172$"2Remove this unused method parameter "actionEvent".(–éğø
-H
-java:S1172."2Remove this unused method parameter "actionEvent".(­ÓˆÍ
-M
-java:S11728"2Remove this unused method parameter "actionEvent".(¨í‘Ïüÿÿÿÿ
+m
+java:S1104"PMake pane a static final constant or non-public and provide accessors if needed.(ç¢ıã8èèÅ·Î1
+u
+java:S1104"SMake lblDate a static final constant or non-public and provide accessors if needed.(…“À„ÿÿÿÿÿ8éèÅ·Î1
+p
+java:S1104"SMake lblTime a static final constant or non-public and provide accessors if needed.(¿°×•8éèÅ·Î1
+y
+java:S1104"WMake CustomerBtn a static final constant or non-public and provide accessors if needed.(ÄÙ²õøÿÿÿÿ8éèÅ·Î1
+u
+java:S1104"SMake itemBtn a static final constant or non-public and provide accessors if needed.(È¥ÅÅÿÿÿÿÿ8Ô©É·Î1
+y
+java:S1104"WMake OrderDetBtn a static final constant or non-public and provide accessors if needed.(ÎºëËüÿÿÿÿ8Ù€Ê·Î1
+w	java:S116"VRename this field "CustomerBtn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÙ²õøÿÿÿÿ8›éÅ·Î1
+w	java:S116"VRename this field "OrderDetBtn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎºëËüÿÿÿÿ8€Ê·Î1
+O
+java:S11724"2Remove this unused method parameter "actionEvent".(–éğø8©éÅ·Î1
+T
+java:S1172@"2Remove this unused method parameter "actionEvent".(Îû¦Íşÿÿÿÿ8ÂéÅ·Î1
+T
+java:S1172L"2Remove this unused method parameter "actionEvent".(¿óÃ–ÿÿÿÿÿ8ÅéÅ·Î1
+T
+java:S1172X"2Remove this unused method parameter "actionEvent".(¨í‘Ïüÿÿÿÿ8ÉéÅ·Î1

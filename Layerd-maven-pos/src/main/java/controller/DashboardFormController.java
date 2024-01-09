@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.animation.Animation;
@@ -20,10 +21,16 @@ public class DashboardFormController {
     public AnchorPane pane;
     public Label lblDate;
     public Label lblTime;
+    public JFXButton CustomerBtn;
+    public JFXButton itemBtn;
+    public JFXButton OrderDetBtn;
 
     public void initialize(){
         showTime();
         showDate();
+        CustomerBtn.setFocusTraversable(false);
+        itemBtn.setFocusTraversable(false);
+        OrderDetBtn.setFocusTraversable(false);
     }
     private void showTime() {
         Timeline time = new Timeline(new KeyFrame(Duration.ZERO,

@@ -57,3 +57,9 @@ Y
 )src/main/java/entity/OrderDetailsKey.java,d\8\d8bf35ddbede29bf962753bff8b727d827e0db2f
 P
  src/main/java/entity/Orders.java,4\8\48211ba3dd7e8b79fb874d28da2202f2c0a2a141
+Q
+!src/main/java/dao/DaoFactory.java,8\d\8d44b226482856d38ca27da71ce51785fc57a3e4
+R
+"src/main/java/db/DBConnection.java,f\d\fd7336f68247f5ace91042607378ff616e4285dd
+c
+3src/main/java/bo/custom/impl/OrderDetailBoImpl.java,5\b\5beeefea51b2f7d05795ffeee23951c8c4f853ed
